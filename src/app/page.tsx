@@ -76,16 +76,22 @@ export default function Home() {
     );
 
     return (
-      <div key={contest.contestName}>
-        <h2 className="position-header">
+      <div key={contest.contestName} className="my-8">
+        <h2 className="text-2xl font-semibold text-center mb-4">
           {contest.contestName} ({type.toUpperCase()})
         </h2>
-        <table className="contest-table">
+        <table className="w-full table-auto border-collapse bg-white">
           <thead>
             <tr>
-              <th>Candidate</th>
-              <th>Votes</th>
-              <th>Percentage</th>
+              <th className="px-4 py-2 text-center bg-blue-600 text-white">
+                Candidate
+              </th>
+              <th className="px-4 py-2 text-center bg-blue-600 text-white">
+                Votes
+              </th>
+              <th className="px-4 py-2 text-center bg-blue-600 text-white">
+                Percentage
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -95,9 +101,11 @@ export default function Home() {
                 const percentage = ((votes / totalVotes) * 100).toFixed(2);
                 return (
                   <tr key={name}>
-                    <td>{name}</td>
-                    <td>{votes}</td>
-                    <td>{percentage}%</td>
+                    <td className="px-4 py-2 text-center border">{name}</td>
+                    <td className="px-4 py-2 text-center border">{votes}</td>
+                    <td className="px-4 py-2 text-center border">
+                      {percentage}%
+                    </td>
                   </tr>
                 );
               })}
@@ -108,16 +116,15 @@ export default function Home() {
   };
 
   return (
-    <div style={{ padding: "20px", background: "#f4f4f4", color: "black" }}>
-      <h1 style={{ textAlign: "center" }}>AGUITING Election Results</h1>
+    <div className="p-6 bg-gray-100 text-black">
+      <h1 className="text-4xl text-center font-bold mb-8">
+        AGUITING Election Results
+      </h1>
 
       {isLoading ? (
-        <p>Loading results...</p>
+        <p className="text-center text-xl">Loading results...</p>
       ) : (
-        <div
-          id="resultsContainer"
-          style={{ margin: "30px auto", width: "80%" }}
-        >
+        <div className="max-w-4xl mx-auto">
           {["national", "local"].map((type) =>
             Object.values(combinedContests[type]).map((contest) =>
               renderContestTable(contest, type)
@@ -125,39 +132,6 @@ export default function Home() {
           )}
         </div>
       )}
-
-      <style jsx>{`
-        body {
-          font-family: Arial;
-          padding: 20px;
-          background: #f4f4f4;
-        }
-        h1,
-        h2,
-        h3 {
-          text-align: center;
-        }
-        .contest-table {
-          margin: 30px auto;
-          width: 80%;
-          background: #fff;
-          border-collapse: collapse;
-        }
-        .contest-table th,
-        .contest-table td {
-          padding: 10px;
-          border: 1px solid #ccc;
-          text-align: center;
-        }
-        .contest-table th {
-          background: #007bff;
-          color: white;
-        }
-        .position-header {
-          margin-top: 40px;
-          text-align: center;
-        }
-      `}</style>
     </div>
   );
 }
